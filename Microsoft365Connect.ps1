@@ -11,7 +11,11 @@ Get-InstalledModule
 Install-Module MSOnline -Scope CurrentUser
 Install-Module AzureADPreview -Scope CurrentUser
 Install-Module Microsoft.Online.SharePoint.PowerShell -Scope CurrentUser
+Install-Module ExchangeOnlineManagement -Scope CurrentUser -Force
+
+
 # Import-Module MSOnline
+Import-Module ExchangeOnlineManagement
 
 # Ziskani pristupovych udaju
 $credential = Get-Credential -UserName "admin@KrtekCompany.onmicrosoft.com" -Message "Login"
