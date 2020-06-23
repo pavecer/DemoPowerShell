@@ -1,12 +1,12 @@
 $domainname = "KrtekCompany.OnMicrosoft.com"
-$credname = ""
-$location = "CZ"
-$accounSKUId = "KrtekCompany:ENTERPRISEPREMIUM"
+#$credname = ""
+#$location = "CZ"
+#$accounSKUId = "KrtekCompany:ENTERPRISEPREMIUM"
 $servicePlanToEnable = "TEAMS1"
 #$cred = get-aitomationPSCredential -name $credname
 
 $allusers = Get-MsolUser -all -DomainName $domainname
-$groups = Get-MsolGroup | ?{$_.displayname -like "*Teams Pilot*"}
+$groups = Get-MsolGroup | Where-Object {$_.displayname -like "*Teams Pilot*"}
 
 foreach ($group in $groups){
     $members = Get-MsolGroupMember -GroupObjectId $group.objectid
@@ -15,12 +15,12 @@ foreach ($group in $groups){
         if ($members.emailaddress -contains $user.userprincipalname){
             $userLicenses = (get-msoluser -UserPrincipalName $userUPN).Licenses
             if ($userLicenses){
-            $userServicePlan = ($userLicenses.ServiceStatus | ?{$_.ProvisioningStatus -eq "Success" -and $_.ServicePlan.ServiceName -eq $servicePlanToEnable}).ServicePlan.ServiceName
+            $userServicePlan = ($userLicenses.ServiceStatus | Where-Object {$_.ProvisioningStatus -eq "Success" -and $_.ServicePlan.ServiceName -eq $servicePlanToEnable}).ServicePlan.ServiceName
             if ($userServicePlan){
                 Write-Host "Uzivatel "$userUPN" jiz ma MS Teams aktivovane."
             } else {
                 Write-Host "Uzivatel "$userUPN" nema MS Teams sluzbu, aktivuji..."
-                $disabledOptions = ($userLicenses.ServiceStatus | ?{$_.ProvisioningStatus -eq "Disabled" -and $_.ServicePlan.ServiceName -ne $servicePlanToEnable}).ServicePlan.servicename
+                $disabledOptions = ($userLicenses.ServiceStatus | where-object {$_.ProvisioningStatus -eq "Disabled" -and $_.ServicePlan.ServiceName -ne $servicePlanToEnable}).ServicePlan.servicename
                 $setLicenseOption = New-MsolLicenseOptions -AccountSkuId $userLicenses.AccountSkuId -DisabledPlans $disabledOptions
                 Set-MsolUserLicense -UserPrincipalName $userUPN -LicenseOptions $setLicenseOption
                 Write-Host "Sluzba "$servicePlanToEnable" byla pro uzivatele "$userUPN" uspesne aktivovana." 

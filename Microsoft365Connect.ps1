@@ -13,6 +13,8 @@ Install-Module AzureADPreview -Scope CurrentUser # AzureAD
 Install-Module Microsoft.Online.SharePoint.PowerShell -Scope CurrentUser # SharePoint
 Install-Module ExchangeOnlineManagement -Scope CurrentUser -Force # Exchange Online
 Install-Module MicrosoftTeams -Scope CurrentUser # Microsoft Teams
+Install-Module Microsoft.PowerApps.Administration.PowerShell -Scope CurrentUser # Microsoft Power Apps a Power Automate (Flow) cmdlety
+Install-Module Microsoft.PowerApps.PowerShell -Scope CurrentUser -AllowClobber
 #Skype Online je pouze ke stazeni, je potreba ke sprave politik pro MS Teams
 
 # Pripadne se da na zacatek skriptu pridat tato cast, abychom zajistili ze bude k dispozici dany modul s cmdlety
@@ -35,9 +37,12 @@ Get-Module MicrosoftTeams
 #Update verze modulu
 Install-Module MicrosoftTeams -Scope CurrentUser -Force
 
-# Import-Module MSOnline
-Import-Module ExchangeOnlineManagement
+# Import-Module MSOnline a ostatni moduly
 Import-Module MicrosoftTeams
+Import-Module ExchangeOnlineManagement
+Import-Module MSOnline
+Import-Module AzureADPreview
+Import-Module Microsoft.Online.SharePoint.PowerShell
 
 # Ziskani pristupovych udaju
 $credential = Get-Credential -UserName "admin@KrtekCompany.onmicrosoft.com" -Message "Login"

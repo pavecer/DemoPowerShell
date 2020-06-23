@@ -39,14 +39,14 @@ $newgroupid = (New-MsolGroup -DisplayName "Demo Teams Production" -Description "
 Get-MsolGroup -ObjectId $newgroupid
 
 # Vylistovani vsech uzivatelu v tenantu a jejich objectid
-get-msoluser -all | select userprincipalname, objectid
+get-msoluser -all | select-object userprincipalname, objectid
 
 # Naskladneni novych uzivatelu do skupiny
 Add-MsolGroupMember -GroupObjectId $newgroupid -GroupMemberObjectId 34998344-88fa-41c8-acfb-a80c86dce4bb -GroupMemberType User
 
 
 # Vyhledani a odstraneni skupiny, kterou jsme zalozili
-Remove-MsolGroup -ObjectId (Get-MsolGroup | ?{$_.displayname -like "*Teams Production*"}).objectid -Force
+Remove-MsolGroup -ObjectId (Get-MsolGroup | where-object {$_.displayname -like "*Teams Production*"}).objectid -Force
 
 
 #Remove-MsolGroup -ObjectId e6cb2c25-3d65-4426-aee1-5109bac9e839 -Force
