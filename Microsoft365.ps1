@@ -16,7 +16,7 @@ Set-MsolUserLicense -UserPrincipalName $userPN -AddLicenses $tenantLicenses[1]
 $userPN="NestorW@KrtekCompany.OnMicrosoft.com"
 $licenseOption = New-MsolLicenseOptions -AccountSkuId KrtekCompany:ENTERPRISEPREMIUM -DisabledPlans TEAMS1
 #Prirazeni konkretni licence na jednoho uzivatele
-Set-MsolUserLicense -UserPrincipalName $userPN -AddLicenses $tenantLicenses[1] -LicenseOptions $licenseOption
+Set-MsolUserLicense -UserPrincipalName $userPN -LicenseOptions $licenseOption
 #Kontrola prirazene licence bez planu TEAMS1 pro Nestora
 (get-msoluser -UserPrincipalName $userPN).Licenses.ServiceStatus
 
@@ -34,7 +34,7 @@ Get-MsolUser -UserPrincipalName $userPN | select Licenses
 
 
 # Zalozeni pilotni skupiny pro prirazeni licenci uzivatelum
-$newgroupid = (New-MsolGroup -DisplayName "Demo Teams Production" -Description "Teams Pilot Group for users assign").objectid
+$newgroupid = (New-MsolGroup -DisplayName "Demo Teams Pilot" -Description "Teams Pilot Group for users assign").objectid
 # Kontrola toho zda-li skupina existuje
 Get-MsolGroup -ObjectId $newgroupid
 
@@ -42,11 +42,11 @@ Get-MsolGroup -ObjectId $newgroupid
 get-msoluser -all | select-object userprincipalname, objectid
 
 # Naskladneni novych uzivatelu do skupiny
-Add-MsolGroupMember -GroupObjectId $newgroupid -GroupMemberObjectId 34998344-88fa-41c8-acfb-a80c86dce4bb -GroupMemberType User
+Add-MsolGroupMember -GroupObjectId $newgroupid -GroupMemberObjectId 97d3df27-5f1f-480f-809d-d4e0bdcd7707 -GroupMemberType User
 
 
 # Vyhledani a odstraneni skupiny, kterou jsme zalozili
-Remove-MsolGroup -ObjectId (Get-MsolGroup | where-object {$_.displayname -like "*Teams Production*"}).objectid -Force
+Remove-MsolGroup -ObjectId (Get-MsolGroup | where-object {$_.displayname -like "*Teams Pilot*"}).objectid -Force
 
 
 #Remove-MsolGroup -ObjectId e6cb2c25-3d65-4426-aee1-5109bac9e839 -Force

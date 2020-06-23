@@ -11,7 +11,7 @@ $externalMailbox = $false
 # Nastaveni identity na ktere se auto reply zapne
 $identity = "JoniS@"+$domainname
 # Nastaveni identity kam bude smerovat pripadne prepsilani
-$remoteemail ="AllanD@"+$domainname
+$remoteemail ="PattiF@"+$domainname
 # Datum od - do
 $startDate = "6.1.2020"
 $endDate = "12.31.2020"

@@ -1,3 +1,7 @@
+Get-Command *user* -Module msonline
+
+Get-Help Get-msoluser
+
 #Hledani modulu v PowerShell galerii
 Find-Module -Name *teams*
 

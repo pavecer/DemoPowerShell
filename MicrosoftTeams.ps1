@@ -11,7 +11,7 @@ Get-CsPolicyPackage
 Get-CsUserPolicyPackage -Identity "AllanD@KrtekCompany.OnMicrosoft.com"
 
 #Vytvoreni tymu a kanalu ze sablony v ramci PowerShell
-$teamName = "Test25"
+$teamName = "Test2"
 $channels = @(
     "Project X",
     "Project Y"

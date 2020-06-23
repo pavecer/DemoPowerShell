@@ -10,3 +10,6 @@ Get-AzureADUser -SearchString $userPN | Revoke-AzureADUserAllRefreshToken
 Set-AzureADUser -ObjectID $userPN -AccountEnabled $false
 # https://docs.microsoft.com/en-us/powershell/module/AzureAD/Set-AzureADUser?view=azureadps-2.0
 Get-AzureADUser -ObjectId $userPN | Select-Object AccountEnabled
+
+# Znovu aktivovani uctu
+Set-AzureADUser -ObjectId $userPN -AccountEnabled $true
