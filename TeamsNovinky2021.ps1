@@ -74,4 +74,4 @@ Remove-TeamTargetingHierarchy
 
 
 # Na unorove OH
-Get-CsTeamsMeetingPolicy -Identity global | fl identity, AllowMeetingRea*
+Get-CsTeamsMeetingPolicy -Identity global | Format-List identity, AllowMeetingRea*
